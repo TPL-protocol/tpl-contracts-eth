@@ -5,10 +5,11 @@
   "license": "MIT",
   "dependencies": {
     "openzeppelin-zos": "git+https://github.com/openzeppelin/openzeppelin-zos#release-v2.0.0",
-    "web3": "^1.0.0-beta.35"
+    "web3": "^1.0.0-beta.35",
+    "zos": "^1.4.2"
   },
   "scripts": {
-  	"build": "truffle compile",
-  	"test": "node scripts/testBasic.js"
+    "build": "truffle compile",
+    "test": "node scripts/testBasic.js"
   }
 }
