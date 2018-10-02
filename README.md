@@ -30,14 +30,11 @@ $ truffle compile
 ```
 
 
-Once contracts are compiled, run tests and collect gas usage metrics:
+Once contracts are compiled, run tests:
 
 ```sh
 $ ganache-cli
 $ node scripts/testBasic.js
-$ node scripts/testZEPValidator.js
-$ node scripts/testStandard.js
-$ node scripts/gasAnalysis.js
 ```
 
 

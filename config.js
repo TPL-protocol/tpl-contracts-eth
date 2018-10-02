@@ -1,7 +1,6 @@
 module.exports = {
   network: 'development',
   TPLTokenAttributeID: 0,
-  ZEPValidatorAttributeID: 0,
   TPLTokenTotalSupply: 100,
   mockZEPTokenTotalSupply: 100,
   TPLTokenAttributeRestricted: false,
@@ -12,5 +11,4 @@ module.exports = {
   mockZEPTokenAttributeJurisdictionFee: 0,
   TPLTokenAttributeDescription: 'Valid ZEP token holder',
   mockZEPTokenAttributeDescription: 'Valid ZEP token holder',
-  ZEPValidatorDescription: 'ZEP validator contract'
 }
