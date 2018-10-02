@@ -12,10 +12,10 @@
     "build": "truffle compile",
     "test": "node scripts/testBasic.js"
   },
-  "files": {
+  "files": [
     "contracts",
     "build",
     "zos.json",
     "zos.*.json"
-  }
+  ]
 }
