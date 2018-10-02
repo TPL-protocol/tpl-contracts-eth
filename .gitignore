@@ -1,5 +1,13 @@
+# npm
 node_modules/
+
+# zOS
+.zos.session
+zos.development.json
+
+# contract artifacts
 build/
+
+# lol macs
 .DS_Store
 
-.zos.session
