@@ -69,9 +69,14 @@ contract BasicJurisdiction is Initializable, Ownable, Pausable, AttributeRegistr
   address[] validatorAddresses;
 
   // the initializer function
-  function initialize() initializer public {
+  function initialize(address sender) initializer public {
     Ownable.initialize();
     Pausable.initialize();
+
+    // Provisional fix.
+    // REMOVE after this is fixed in zos 2.x.
+    // Problem: initialize is called by the zos App, and Ownable assigns ownership to msg.sender.
+    _transferOwnership(sender);
   }
 
   // the contract owner may declare attributes recognized by the jurisdiction
