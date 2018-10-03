@@ -1,4 +1,5 @@
 {
+  "zosversion": "2",
   "name": "tpl-contracts-zos",
   "version": "0.0.1",
   "contracts": {
