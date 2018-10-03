@@ -6,7 +6,7 @@
   "dependencies": {
     "openzeppelin-zos": "git+https://github.com/openzeppelin/openzeppelin-zos#release-v2.0.0",
     "web3": "^0.20.6",
-    "zos": "^1.4.2"
+    "zos": "^2.0.0-alpha.0"
   },
   "scripts": {
     "build": "truffle compile",
