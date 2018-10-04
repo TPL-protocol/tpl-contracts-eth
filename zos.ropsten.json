@@ -1,0 +1,275 @@
+{
+  "contracts": {
+    "BasicJurisdiction": {
+      "address": "0x658262ad4d9cab4304f16fc10a9ecdac990b0d1d",
+      "constructorCode": "60806040526000600260006101000a81548160ff02191690831515021790555034801561002b57600080fd5b506141b48061003b6000396000f300",
+      "bodyBytecodeHash": "9a1a07b3b79521dd1f079bac98704afc74c929a3fdf2cbdb593742f531c41221",
+      "bytecodeHash": "0da577f0006d6c52ffa347e84c80afadfbcb8d598c0237d1ac433595965ac51d",
+      "types": {
+        "t_bool": {
+          "id": "t_bool",
+          "kind": "elementary",
+          "label": "bool"
+        },
+        "t_address": {
+          "id": "t_address",
+          "kind": "elementary",
+          "label": "address"
+        },
+        "t_struct<Roles.Role>": {
+          "id": "t_struct<Roles.Role>",
+          "kind": "struct",
+          "label": "Roles.Role",
+          "members": [
+            {
+              "label": "bearer",
+              "astId": 1413,
+              "type": "t_mapping<t_bool>",
+              "src": "146:32:6"
+            }
+          ]
+        },
+        "t_mapping<t_bool>": {
+          "id": "t_mapping<t_bool>",
+          "valueType": "t_bool",
+          "label": "mapping(key => bool)",
+          "kind": "mapping"
+        },
+        "t_struct<BasicJurisdiction.AttributeMetadata>": {
+          "id": "t_struct<BasicJurisdiction.AttributeMetadata>",
+          "kind": "struct",
+          "label": "BasicJurisdiction.AttributeMetadata",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 117,
+              "type": "t_bool",
+              "src": "1620:11:1"
+            },
+            {
+              "label": "index",
+              "astId": 119,
+              "type": "t_uint248",
+              "src": "1637:13:1"
+            },
+            {
+              "label": "description",
+              "astId": 121,
+              "type": "t_string",
+              "src": "1656:18:1"
+            },
+            {
+              "label": "approvedValidators",
+              "astId": 125,
+              "type": "t_mapping<t_bool>",
+              "src": "1680:43:1"
+            }
+          ]
+        },
+        "t_uint248": {
+          "id": "t_uint248",
+          "kind": "elementary",
+          "label": "uint248"
+        },
+        "t_string": {
+          "id": "t_string",
+          "kind": "elementary",
+          "label": "string"
+        },
+        "t_mapping<t_struct<BasicJurisdiction.AttributeMetadata>>": {
+          "id": "t_mapping<t_struct<BasicJurisdiction.AttributeMetadata>>",
+          "valueType": "t_struct<BasicJurisdiction.AttributeMetadata>",
+          "label": "mapping(key => BasicJurisdiction.AttributeMetadata)",
+          "kind": "mapping"
+        },
+        "t_struct<BasicJurisdiction.Attribute>": {
+          "id": "t_struct<BasicJurisdiction.Attribute>",
+          "kind": "struct",
+          "label": "BasicJurisdiction.Attribute",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 110,
+              "type": "t_bool",
+              "src": "1446:11:1"
+            },
+            {
+              "label": "validator",
+              "astId": 112,
+              "type": "t_address",
+              "src": "1463:17:1"
+            },
+            {
+              "label": "value",
+              "astId": 114,
+              "type": "t_uint256",
+              "src": "1486:13:1"
+            }
+          ]
+        },
+        "t_uint256": {
+          "id": "t_uint256",
+          "kind": "elementary",
+          "label": "uint256"
+        },
+        "t_mapping<t_struct<BasicJurisdiction.Attribute>>": {
+          "id": "t_mapping<t_struct<BasicJurisdiction.Attribute>>",
+          "valueType": "t_struct<BasicJurisdiction.Attribute>",
+          "label": "mapping(key => BasicJurisdiction.Attribute)",
+          "kind": "mapping"
+        },
+        "t_struct<BasicJurisdiction.Validator>": {
+          "id": "t_struct<BasicJurisdiction.Validator>",
+          "kind": "struct",
+          "label": "BasicJurisdiction.Validator",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 103,
+              "type": "t_bool",
+              "src": "1279:11:1"
+            },
+            {
+              "label": "index",
+              "astId": 105,
+              "type": "t_uint248",
+              "src": "1296:13:1"
+            },
+            {
+              "label": "description",
+              "astId": 107,
+              "type": "t_string",
+              "src": "1315:18:1"
+            }
+          ]
+        },
+        "t_mapping<t_struct<BasicJurisdiction.Validator>>": {
+          "id": "t_mapping<t_struct<BasicJurisdiction.Validator>>",
+          "valueType": "t_struct<BasicJurisdiction.Validator>",
+          "label": "mapping(key => BasicJurisdiction.Validator)",
+          "kind": "mapping"
+        },
+        "t_mapping<t_bytes32>": {
+          "id": "t_mapping<t_bytes32>",
+          "valueType": "t_bytes32",
+          "label": "mapping(key => bytes32)",
+          "kind": "mapping"
+        },
+        "t_array:dyn<t_uint256>": {
+          "id": "t_array:dyn<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "dyn",
+          "kind": "array",
+          "label": "uint256[]"
+        },
+        "t_array:dyn<t_address>": {
+          "id": "t_array:dyn<t_address>",
+          "valueType": "t_address",
+          "length": "dyn",
+          "kind": "array",
+          "label": "address[]"
+        }
+      },
+      "storage": [
+        {
+          "contract": "Initializable",
+          "path": "openzeppelin-zos/contracts/Initializable.sol",
+          "label": "initialized",
+          "astId": 1359,
+          "type": "t_bool",
+          "src": "701:24:5"
+        },
+        {
+          "contract": "Initializable",
+          "path": "openzeppelin-zos/contracts/Initializable.sol",
+          "label": "initializing",
+          "astId": 1361,
+          "type": "t_bool",
+          "src": "820:25:5"
+        },
+        {
+          "contract": "Ownable",
+          "path": "openzeppelin-zos/contracts/ownership/Ownable.sol",
+          "label": "_owner",
+          "astId": 1818,
+          "type": "t_address",
+          "src": "286:22:10"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "openzeppelin-zos/contracts/access/roles/PauserRole.sol",
+          "label": "pausers",
+          "astId": 1505,
+          "type": "t_struct<Roles.Role>",
+          "src": "252:26:7"
+        },
+        {
+          "contract": "Pausable",
+          "path": "openzeppelin-zos/contracts/lifecycle/Pausable.sol",
+          "label": "_paused",
+          "astId": 1616,
+          "type": "t_bool",
+          "src": "303:28:8"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "attributeTypes",
+          "astId": 130,
+          "type": "t_mapping<t_struct<BasicJurisdiction.AttributeMetadata>>",
+          "src": "1813:52:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "attributes",
+          "astId": 136,
+          "type": "t_mapping<t_struct<BasicJurisdiction.Attribute>>",
+          "src": "1948:60:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "validators",
+          "astId": 140,
+          "type": "t_mapping<t_struct<BasicJurisdiction.Validator>>",
+          "src": "2093:40:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "attributeTypeHashes",
+          "astId": 144,
+          "type": "t_mapping<t_bytes32>",
+          "src": "2211:47:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "attributeIds",
+          "astId": 147,
+          "type": "t_array:dyn<t_uint256>",
+          "src": "2343:22:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "validatorAddresses",
+          "astId": 150,
+          "type": "t_array:dyn<t_address>",
+          "src": "2441:28:1"
+        }
+      ]
+    }
+  },
+  "lib": true,
+  "frozen": false,
+  "zosversion": "2",
+  "package": {
+    "address": "0xe5eaf9034a29f8b413c548d1c62a5680f7c78cab"
+  },
+  "provider": {
+    "address": "0xd6854c412028a464e71a38327f35e49ab6587b84"
+  },
+  "version": "0.0.1"
+}
