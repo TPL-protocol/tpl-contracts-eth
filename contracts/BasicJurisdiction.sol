@@ -1,9 +1,9 @@
 pragma solidity ^0.4.24;
 
-import "openzeppelin-zos/contracts/Initializable.sol";
-import "openzeppelin-zos/contracts/math/SafeMath.sol";
-import "openzeppelin-zos/contracts/ownership/Ownable.sol";
-import "openzeppelin-zos/contracts/lifecycle/Pausable.sol";
+import "zos-lib/contracts/Initializable.sol";
+import "openzeppelin-eth/contracts/math/SafeMath.sol";
+import "openzeppelin-eth/contracts/ownership/Ownable.sol";
+import "openzeppelin-eth/contracts/lifecycle/Pausable.sol";
 import "./AttributeRegistryInterface.sol";
 import "./BasicJurisdictionInterface.sol";
 

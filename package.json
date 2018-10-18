@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "openzeppelin-zos": "git+https://github.com/openzeppelin/openzeppelin-zos#6956b93",
+    "openzeppelin-eth": "git+https://github.com/openzeppelin/openzeppelin-eth#5e69036bbc5e907b1c6e9f102828003bb7c47beb",
     "web3": "^1.0.0-beta.35",
     "zos": "^2.0.0-rc.0",
     "zos-lib": "^2.0.0-rc.0"
