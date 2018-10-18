@@ -18,5 +18,11 @@
     "build": "npx truffle compile",
     "test": "npx truffle compile && node scripts/testBasicDirect.js && node scripts/testOrganizationsValidatorDirect.js",
     "coverage": "./node_modules/.bin/solidity-coverage"
-  }
+  },
+  "files": [
+    "contracts",
+    "build",
+    "zos.json",
+    "zos.*.json"
+  ]
 }
