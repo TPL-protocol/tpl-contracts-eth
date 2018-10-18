@@ -13,8 +13,8 @@
     "truffle": "5.0.0-beta.1"
   },
   "scripts": {
-    "build": "./node_modules/.bin/truffle compile",
-    "test": "./node_modules/.bin/truffle compile; node scripts/testBasicDirect.js; node scripts/testZEPValidatorDirect.js; node scripts/testOptimizationDisabled.js",
+    "build": "npx truffle compile",
+    "test": "npx truffle compile && node scripts/testBasicDirect.js && node scripts/testOrganizationsValidatorDirect.js",
     "coverage": "./node_modules/.bin/solidity-coverage"
   }
 }
