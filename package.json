@@ -23,7 +23,7 @@
     "deploy-kovan": "npx zos push --network=kovan --from=0x1fc02e23b5f4dec47070fb534c9ed83301306143",
     "deploy-ropsten": "npx zos push --network=ropsten --from=0x09902a56d04a9446601a0d451e07459dc5af0820",
     "deploy-rinkeby": "npx zos push --network=rinkeby --from=0xd97709745693eac4bb09b20ee1cf8a78dca53be5",
-    "deploy-mainnet": "npx zos push --network=mainnet --from=0xe373e9855dadeb9ce76d2c5f5484d93699acb735"
+    "deploy-mainnet": "npx zos push --network=mainnet --from=0x6Bf917B4725aD736B33Dbd493Ad7a4B992150DAb"
   },
   "files": [
     "contracts",

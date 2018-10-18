@@ -38,10 +38,10 @@ module.exports = {
     },
     mainnet: {
       host: 'localhost',
-      port: 8545,
+      port: 8546,
       network_id: '1',
       gas: 1000000,
-      gasPrice: 1e9,  // 1 Gwei
+      gasPrice: 10e9, // 10 Gwei
     }
   },
   solc: {
