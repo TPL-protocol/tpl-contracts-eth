@@ -1,0 +1,10 @@
+{
+  "zosversion": "2",
+  "publish": true,
+  "name": "tpl-contracts-eth",
+  "version": "1.0.0",
+  "contracts": {
+    "BasicJurisdiction": "BasicJurisdiction",
+    "OrganizationsValidator": "OrganizationsValidator"
+  }
+}
