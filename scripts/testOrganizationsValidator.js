@@ -1,28 +1,28 @@
 var assert = require('assert')
 
 const JurisdictionContractData = require('../build/contracts/BasicJurisdiction.json')
-const ZEPValidatorContractData = require('../build/contracts/ZEPValidator.json')
-const MockZEPTokenContractData = require('../build/contracts/TPLTokenInstance.json')
+const OrganizationsValidatorContractData = require('../build/contracts/OrganizationsValidator.json')
+const TPLTokenMockContractData = require('../build/contracts/TPLTokenMock.json')
 const applicationConfig = require('../config.js')
 
-const mockZEPTokenAttributeID = applicationConfig.ZEPValidatorAttributeID
-const ZEPValidatorDescription = applicationConfig.ZEPValidatorDescription
+const OrganizationsValidatorAttributeID = applicationConfig.OrganizationsValidatorAttributeID
+const OrganizationsValidatorDescription = applicationConfig.OrganizationsValidatorDescription
 
-const mockZEPTokenTotalSupply = applicationConfig.mockZEPTokenTotalSupply
-const mockZEPTokenAttributeRestricted = applicationConfig[
-  'mockZEPTokenAttributeRestricted'
+const TPLTokenMockTotalSupply = applicationConfig.TPLTokenMockTotalSupply
+const TPLTokenMockAttributeRestricted = applicationConfig[
+  'TPLTokenMockAttributeRestricted'
 ]
-const mockZEPTokenAttributeMinimumRequiredStake = applicationConfig[
-  'mockZEPTokenAttributeMinimumRequiredStake'
+const TPLTokenMockAttributeMinimumRequiredStake = applicationConfig[
+  'TPLTokenMockAttributeMinimumRequiredStake'
 ]
-const mockZEPTokenAttributeJurisdictionFee = applicationConfig[
-  'mockZEPTokenAttributeJurisdictionFee'
+const TPLTokenMockAttributeJurisdictionFee = applicationConfig[
+  'TPLTokenMockAttributeJurisdictionFee'
 ]
-const mockZEPTokenAttributeDescription = applicationConfig[
-  'mockZEPTokenAttributeDescription'
+const TPLTokenMockAttributeDescription = applicationConfig[
+  'TPLTokenMockAttributeDescription'
 ]
 
-const ZEPOrganizationName = 'Mock ZEP Organization'
+const mockOrganizationName = 'Mock Organization'
 
 module.exports = {test: async function (provider, testingContext) {
   var web3 = provider
@@ -43,8 +43,8 @@ module.exports = {test: async function (provider, testingContext) {
   const nullAddress = '0x0000000000000000000000000000000000000000'
 
   const Jurisdiction = new web3.eth.Contract(JurisdictionContractData.abi)
-  const ZEPValidator = new web3.eth.Contract(ZEPValidatorContractData.abi)
-  const MockZEPToken = new web3.eth.Contract(MockZEPTokenContractData.abi)
+  const OrganizationsValidator = new web3.eth.Contract(OrganizationsValidatorContractData.abi)
+  const TPLTokenMock = new web3.eth.Contract(TPLTokenMockContractData.abi)
 
   const NiceJurisdictionBytecode = '0x608060405234801561001057600080fd5b50610' +
     '144806100206000396000f3006080604052600436106100565763ffffffff7c010000000' +
@@ -91,25 +91,25 @@ module.exports = {test: async function (provider, testingContext) {
 
   const jurisdictionAddress = JurisdictionContractInstance.options.address 
 
-  const ZEPValidatorContractInstance = await ZEPValidator.deploy({
-    data: ZEPValidatorContractData.bytecode
+  const OrganizationsValidatorContractInstance = await OrganizationsValidator.deploy({
+    data: OrganizationsValidatorContractData.bytecode
   }).send({
     from: address,
     gas: gasLimit - 1,
     gasPrice: 10 ** 1
   })
 
-  const ZEPValidatorAddress = ZEPValidatorContractInstance.options.address
+  const OrganizationsValidatorAddress = OrganizationsValidatorContractInstance.options.address
 
-  const MockZEPTokenContractInstance = await MockZEPToken.deploy({
-    data: MockZEPTokenContractData.bytecode
+  const TPLTokenMockContractInstance = await TPLTokenMock.deploy({
+    data: TPLTokenMockContractData.bytecode
   }).send({
     from: address,
     gas: gasLimit - 1,
     gasPrice: 10 ** 1
   })
 
-  const tokenAddress = MockZEPTokenContractInstance.options.address
+  const tokenAddress = TPLTokenMockContractInstance.options.address
 
   const NiceJurisdictionContractInstance = await Jurisdiction.deploy(
     {
@@ -124,8 +124,8 @@ module.exports = {test: async function (provider, testingContext) {
     process.exit(1)
   })
 
-  const NiceZEPValidatorContractInstance = await ZEPValidator.deploy({
-    data: ZEPValidatorContractData.bytecode
+  const NiceOrganizationsValidatorContractInstance = await OrganizationsValidator.deploy({
+    data: OrganizationsValidatorContractData.bytecode
   }).send({
     from: address,
     gas: gasLimit - 1,
@@ -145,8 +145,8 @@ module.exports = {test: async function (provider, testingContext) {
     process.exit(1)
   })
 
-  const NaughtyZEPValidatorContractInstance = await ZEPValidator.deploy({
-    data: ZEPValidatorContractData.bytecode
+  const NaughtyOrganizationsValidatorContractInstance = await OrganizationsValidator.deploy({
+    data: OrganizationsValidatorContractData.bytecode
   }).send({
     from: address,
     gas: gasLimit - 1,
@@ -185,52 +185,52 @@ module.exports = {test: async function (provider, testingContext) {
   console.log(` ✓ Jurisdiction contract can be unpaused`)
   passed++
 
-  await ZEPValidatorContractInstance.methods.initialize(
+  await OrganizationsValidatorContractInstance.methods.initialize(
     JurisdictionContractInstance.options.address,
-    mockZEPTokenAttributeID
+    OrganizationsValidatorAttributeID
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).catch(error => {
     console.log(
-      " ✓ ZEP Validator contract can be initialized"
+      " ✓ Orgainzations Validator contract can be initialized"
     )
     passed++
   })
 
-  await NiceZEPValidatorContractInstance.methods.initialize(
+  await NiceOrganizationsValidatorContractInstance.methods.initialize(
     NiceJurisdictionContractInstance.options.address,
-    mockZEPTokenAttributeID
+    OrganizationsValidatorAttributeID
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).catch(error => {
     console.log(
-      " ✓ Nice ZEP Validator contract can be initialized"
+      " ✓ Nice Organizations Validator contract can be initialized"
     )
     passed++
   })
 
-  await NaughtyZEPValidatorContractInstance.methods.initialize(
+  await NaughtyOrganizationsValidatorContractInstance.methods.initialize(
     NaughtyJurisdictionContractInstance.options.address,
-    mockZEPTokenAttributeID
+    OrganizationsValidatorAttributeID
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).catch(error => {
     console.log(
-      " ✓ Naughty ZEP Validator contract can be initialized"
+      " ✓ Naughty Organizations Validator contract can be initialized"
     )
     passed++
   })
 
-  await MockZEPTokenContractInstance.methods.initialize(
-    mockZEPTokenTotalSupply,
+  await TPLTokenMockContractInstance.methods.initialize(
+    TPLTokenMockTotalSupply,
     JurisdictionContractInstance.options.address,
-    mockZEPTokenAttributeID
+    OrganizationsValidatorAttributeID
   ).send({
     from: address,
     gas: 5000000,
@@ -252,37 +252,37 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.owner().call({
+  await OrganizationsValidatorContractInstance.methods.owner().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).then(ownerAddress => {
     assert.strictEqual(ownerAddress, address)
-    console.log(' ✓ ZEP validator owner is set to the correct address')
+    console.log(' ✓ Organizations Validator owner is set to the correct address')
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getValidAttributeTypeID().call({
+  await OrganizationsValidatorContractInstance.methods.getValidAttributeTypeID().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).then(ID => {
-    assert.strictEqual(ID, mockZEPTokenAttributeID.toString())
-    console.log(' ✓ ZEP validator has the correct attribute ID')
+    assert.strictEqual(ID, OrganizationsValidatorAttributeID.toString())
+    console.log(' ✓ Organizations Validator has the correct attribute ID')
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizations().call({
+  await OrganizationsValidatorContractInstance.methods.getOrganizations().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).then(organizations => {
     assert.strictEqual(organizations.length, 0)
-    console.log(' ✓ ZEP validator organizations are initially empty')
+    console.log(' ✓ Organizations Validator organizations are initially empty')
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizationInformation(
+  await OrganizationsValidatorContractInstance.methods.getOrganizationInformation(
     organizationAddress
   ).call({
     from: address,
@@ -293,23 +293,23 @@ module.exports = {test: async function (provider, testingContext) {
     assert.strictEqual(organization.maximumAccounts, '0')
     assert.strictEqual(organization.name, '')
     assert.strictEqual(organization.issuedAccounts.length, 0)
-    console.log(' ✓ ZEP validator gives empty data for organization query')
+    console.log(' ✓ Organizations Validator gives empty data for organization query')
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getJurisdiction().call({
+  await OrganizationsValidatorContractInstance.methods.getJurisdiction().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).then(foundJurisdictionAddress => {
     assert.strictEqual(foundJurisdictionAddress, jurisdictionAddress)
     console.log(
-      ' ✓ ZEP validator points to the correct jurisdiction address'
+      ' ✓ Organizations Validator points to the correct jurisdiction address'
     )
     passed++
   })
 
-  await MockZEPTokenContractInstance.methods.getRegistry().call({
+  await TPLTokenMockContractInstance.methods.getRegistry().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -321,17 +321,17 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
   
-  await MockZEPTokenContractInstance.methods.balanceOf(address).call({
+  await TPLTokenMockContractInstance.methods.balanceOf(address).call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   }).then(balance => {
-    assert.strictEqual(balance, mockZEPTokenTotalSupply.toString())
+    assert.strictEqual(balance, TPLTokenMockTotalSupply.toString())
     console.log(' ✓ mock token has the correct balance')
     passed++
   })
 
-  await MockZEPTokenContractInstance.methods.transfer(inattributedAddress, 1).send({
+  await TPLTokenMockContractInstance.methods.transfer(inattributedAddress, 1).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -342,61 +342,61 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  console.log(' ✓ ZEP validator can be properly set up by the jurisdiction')
+  console.log(' ✓ Organizations Validator can be properly set up by the jurisdiction')
 
   await JurisdictionContractInstance.methods.addAttributeType(
-    mockZEPTokenAttributeID,
-    mockZEPTokenAttributeDescription
+    OrganizationsValidatorAttributeID,
+    TPLTokenMockAttributeDescription
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   })
-  console.log(` ✓ ZEP attribute type can be added to jurisdiction`)
+  console.log(` ✓ Validator's attribute type can be added to jurisdiction`)
   passed++
 
   await JurisdictionContractInstance.methods.addValidator(
-    ZEPValidatorAddress,
-    ZEPValidatorDescription
+    OrganizationsValidatorAddress,
+    OrganizationsValidatorDescription
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   })
-  console.log(` ✓ ZEP validator can be added to jurisdiction`)
+  console.log(` ✓ Organizations Validator can be added to jurisdiction`)
   passed++
 
   await JurisdictionContractInstance.methods.addValidatorApproval(
-    ZEPValidatorAddress,
-    mockZEPTokenAttributeID
+    OrganizationsValidatorAddress,
+    OrganizationsValidatorAttributeID
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   })
-  console.log(` ✓ ZEP validator can be approved to issue target attribute`)
+  console.log(` ✓ Organizations Validator can be approved to issue target attribute`)
   passed++
 
-  await ZEPValidatorContractInstance.methods.addOrganization(
+  await OrganizationsValidatorContractInstance.methods.addOrganization(
     organizationAddress,
     20, // maximumAccounts
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   }).then(receipt => {
-    console.log(` ✓ ZEP validator can add an organization`)
+    console.log(` ✓ Organizations Validator can add an organization`)
     passed++
 
     const logs = receipt.events.OrganizationAdded.returnValues
     assert.strictEqual(logs.organization, organizationAddress)
-    assert.strictEqual(logs.name, ZEPOrganizationName)
+    assert.strictEqual(logs.name, mockOrganizationName)
     console.log(' ✓ OrganizationAdded event is logged correctly')
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.countOrganizations().call({
+  await OrganizationsValidatorContractInstance.methods.countOrganizations().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -406,7 +406,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganization(0).call({
+  await OrganizationsValidatorContractInstance.methods.getOrganization(0).call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -416,7 +416,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizations().call({
+  await OrganizationsValidatorContractInstance.methods.getOrganizations().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -427,7 +427,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizationInformation(
+  await OrganizationsValidatorContractInstance.methods.getOrganizationInformation(
     organizationAddress
   ).call({
     from: address,
@@ -436,59 +436,59 @@ module.exports = {test: async function (provider, testingContext) {
   }).then(organization => {
     assert.strictEqual(organization.exists, true)
     assert.strictEqual(organization.maximumAccounts, '20')
-    assert.strictEqual(organization.name, ZEPOrganizationName)
+    assert.strictEqual(organization.name, mockOrganizationName)
     assert.strictEqual(organization.issuedAccounts.length, 0)
     console.log(
-      ' ✓ ZEP validator gives correct data for organization query'
+      ' ✓ Organizations Validator gives correct data for organization query'
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.addOrganization(
+  await OrganizationsValidatorContractInstance.methods.addOrganization(
     nullAddress,
     100,
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   }).catch(error => {
     console.log(
-      ` ✓ ZEP validator cannot add an organization with an empty address`
+      ` ✓ Organizations Validator cannot add an organization with an empty address`
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.addOrganization(
+  await OrganizationsValidatorContractInstance.methods.addOrganization(
     organizationAddress,
     100,
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   }).catch(error => {
-    console.log(` ✓ ZEP validator cannot add a duplicate organization`)
+    console.log(` ✓ Organizations Validator cannot add a duplicate organization`)
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.addOrganization(
+  await OrganizationsValidatorContractInstance.methods.addOrganization(
     address,
     100,
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   }).then(receipt => {
-    console.log(` ✓ ZEP validator can add multiple organizations`)
+    console.log(` ✓ Organizations Validator can add multiple organizations`)
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.addOrganization(
+  await OrganizationsValidatorContractInstance.methods.addOrganization(
     inattributedAddress,
     100,
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: inattributedAddress,
     gas: 5000000,
@@ -498,7 +498,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.setMaximumIssuableAttributes(
+  await OrganizationsValidatorContractInstance.methods.setMaximumIssuableAttributes(
     organizationAddress,
     2
   ).send({
@@ -507,12 +507,12 @@ module.exports = {test: async function (provider, testingContext) {
     gasPrice: '1000000000'
   }).then(receipt => {
     console.log(
-      ` ✓ ZEP validator can change maximum address an organization can issue`
+      ` ✓ Organizations Validator can change maximum address an organization can issue`
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizations().call({
+  await OrganizationsValidatorContractInstance.methods.getOrganizations().call({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -524,7 +524,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizationInformation(
+  await OrganizationsValidatorContractInstance.methods.getOrganizationInformation(
     organizationAddress
   ).call({
     from: address,
@@ -533,15 +533,15 @@ module.exports = {test: async function (provider, testingContext) {
   }).then(organization => {
     assert.strictEqual(organization.exists, true)
     assert.strictEqual(organization.maximumAccounts, '2')
-    assert.strictEqual(organization.name, ZEPOrganizationName)
+    assert.strictEqual(organization.name, mockOrganizationName)
     assert.strictEqual(organization.issuedAccounts.length, 0)
     console.log(
-      ' ✓ ZEP validator gives updated data for organization query'
+      ' ✓ Organizations Validator gives updated data for organization query'
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.setMaximumIssuableAttributes(
+  await OrganizationsValidatorContractInstance.methods.setMaximumIssuableAttributes(
     inattributedAddress,
     2
   ).send({
@@ -550,12 +550,12 @@ module.exports = {test: async function (provider, testingContext) {
     gasPrice: '1000000000'
   }).catch(error => {
     console.log(
-      ` ✓ ZEP validator cannot change maximum address for unknown organization`
+      ` ✓ Organizations Validator cannot change maximum address for unknown organization`
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.setMaximumIssuableAttributes(
+  await OrganizationsValidatorContractInstance.methods.setMaximumIssuableAttributes(
     organizationAddress,
     100
   ).send({
@@ -569,16 +569,16 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.pauseIssuance(
+  await OrganizationsValidatorContractInstance.methods.pauseIssuance(
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   })
-  console.log(` ✓ ZEP validator attribute issuance can be paused`)
+  console.log(` ✓ Organizations Validator attribute issuance can be paused`)
   passed++
 
-  await ZEPValidatorContractInstance.methods.issuanceIsPaused(
+  await OrganizationsValidatorContractInstance.methods.issuanceIsPaused(
   ).call({
     from: address,
     gas: 5000000,
@@ -589,7 +589,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -602,16 +602,16 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.unpauseIssuance(
+  await OrganizationsValidatorContractInstance.methods.unpauseIssuance(
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   })
-  console.log(` ✓ ZEP validator attribute issuance can be unpaused`)
+  console.log(` ✓ Organizations Validator attribute issuance can be unpaused`)
   passed++
 
-  await ZEPValidatorContractInstance.methods.unpauseIssuance(
+  await OrganizationsValidatorContractInstance.methods.unpauseIssuance(
   ).send({
     from: address,
     gas: 5000000,
@@ -623,16 +623,16 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.pause(
+  await OrganizationsValidatorContractInstance.methods.pause(
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   })
-  console.log(` ✓ ZEP validator contract can be paused`)
+  console.log(` ✓ Organizations Validator contract can be paused`)
   passed++
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -645,26 +645,26 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.unpause(
+  await OrganizationsValidatorContractInstance.methods.unpause(
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
   })
-  console.log(` ✓ ZEP validator contract can be unpaused`)
+  console.log(` ✓ Organizations Validator contract can be unpaused`)
   passed++
 
   await JurisdictionContractInstance.methods.removeValidator(
-    ZEPValidatorAddress
+    OrganizationsValidatorAddress
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   })
-  console.log(` ✓ ZEP validator can be removed from jurisdiction`)
+  console.log(` ✓ Organizations Validator can be removed from jurisdiction`)
   passed++
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -678,30 +678,30 @@ module.exports = {test: async function (provider, testingContext) {
   })
 
   await JurisdictionContractInstance.methods.addValidator(
-    ZEPValidatorAddress,
-    ZEPValidatorDescription
+    OrganizationsValidatorAddress,
+    OrganizationsValidatorDescription
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   })
-  console.log(` ✓ ZEP validator can be added back to jurisdiction`)
+  console.log(` ✓ Organizations Validator can be added back to jurisdiction`)
   passed++
 
   await JurisdictionContractInstance.methods.addValidatorApproval(
-    ZEPValidatorAddress,
-    mockZEPTokenAttributeID
+    OrganizationsValidatorAddress,
+    OrganizationsValidatorAttributeID
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   })
   console.log(
-    ` ✓ ZEP validator must be reapproved to issue target attribute`
+    ` ✓ Organizations Validator must be reapproved to issue target attribute`
   )
   passed++
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -721,7 +721,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -734,7 +734,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.setMaximumIssuableAttributes(
+  await OrganizationsValidatorContractInstance.methods.setMaximumIssuableAttributes(
     organizationAddress,
     0
   ).send({
@@ -743,12 +743,12 @@ module.exports = {test: async function (provider, testingContext) {
     gasPrice: '1000000000'
   }).catch(error => {
     console.log(
-      ` ✓ ZEP validator cannot change max addresses to amount below current`
+      ` ✓ Organizations Validator cannot change max addresses to amount below current`
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizationInformation(
+  await OrganizationsValidatorContractInstance.methods.getOrganizationInformation(
     organizationAddress
   ).call({
     from: address,
@@ -757,16 +757,16 @@ module.exports = {test: async function (provider, testingContext) {
   }).then(organization => {
     assert.strictEqual(organization.exists, true)
     assert.strictEqual(organization.maximumAccounts, '2')
-    assert.strictEqual(organization.name, ZEPOrganizationName)
+    assert.strictEqual(organization.name, mockOrganizationName)
     assert.strictEqual(organization.issuedAccounts.length, 1)
     assert.strictEqual(organization.issuedAccounts[0], attributedAddress)
     console.log(
-      ' ✓ ZEP validator gives updated data for organization query'
+      ' ✓ Organizations Validator gives updated data for organization query'
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     inattributedAddress
   ).send({
     from: inattributedAddress,
@@ -779,7 +779,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     nullAddress
   ).send({
     from: organizationAddress,
@@ -792,7 +792,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -805,7 +805,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     address
   ).send({
     from: organizationAddress,
@@ -818,7 +818,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.getOrganizationInformation(
+  await OrganizationsValidatorContractInstance.methods.getOrganizationInformation(
     organizationAddress
   ).call({
     from: address,
@@ -827,17 +827,17 @@ module.exports = {test: async function (provider, testingContext) {
   }).then(organization => {
     assert.strictEqual(organization.exists, true)
     assert.strictEqual(organization.maximumAccounts, '2')
-    assert.strictEqual(organization.name, ZEPOrganizationName)
+    assert.strictEqual(organization.name, mockOrganizationName)
     assert.strictEqual(organization.issuedAccounts.length, 2)
     assert.strictEqual(organization.issuedAccounts[0], attributedAddress)
     assert.strictEqual(organization.issuedAccounts[1], address)
     console.log(
-      ' ✓ ZEP validator gives updated data for organization query'
+      ' ✓ Organizations Validator gives updated data for organization query'
     )
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.issueAttribute(
+  await OrganizationsValidatorContractInstance.methods.issueAttribute(
     inattributedAddress
   ).send({
     from: organizationAddress,
@@ -850,7 +850,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })  
 
-  await ZEPValidatorContractInstance.methods.revokeAttribute(
+  await OrganizationsValidatorContractInstance.methods.revokeAttribute(
     attributedAddress
   ).send({
     from: inattributedAddress,
@@ -863,7 +863,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.revokeAttribute(
+  await OrganizationsValidatorContractInstance.methods.revokeAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -883,7 +883,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.revokeAttribute(
+  await OrganizationsValidatorContractInstance.methods.revokeAttribute(
     nullAddress
   ).send({
     from: organizationAddress,
@@ -896,7 +896,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await ZEPValidatorContractInstance.methods.revokeAttribute(
+  await OrganizationsValidatorContractInstance.methods.revokeAttribute(
     inattributedAddress
   ).send({
     from: organizationAddress,
@@ -910,20 +910,20 @@ module.exports = {test: async function (provider, testingContext) {
   })
 
   // the "naughty" jurisdiction always returns false: attributes cannot be added
-  await NaughtyZEPValidatorContractInstance.methods.addOrganization(
+  await NaughtyOrganizationsValidatorContractInstance.methods.addOrganization(
     organizationAddress,
     20, // maximumAccounts
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   }).then(receipt => {
-    console.log(` ✓ ZEP validator attached to naughty jurisdiction can add org`)
+    console.log(` ✓ Organizations Validator attached to naughty jurisdiction can add org`)
     passed++
   })
 
-  await NaughtyZEPValidatorContractInstance.methods.issueAttribute(
+  await NaughtyOrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -937,20 +937,20 @@ module.exports = {test: async function (provider, testingContext) {
   })
 
   // the "nice" jurisdiction always returns true: attributes cannot be revoked
-  await NiceZEPValidatorContractInstance.methods.addOrganization(
+  await NiceOrganizationsValidatorContractInstance.methods.addOrganization(
     organizationAddress,
     20, // maximumAccounts
-    ZEPOrganizationName
+    mockOrganizationName
   ).send({
     from: address,
     gas: 5000000,
     gasPrice: '1000000000'
   }).then(receipt => {
-    console.log(` ✓ ZEP validator attached to nice jurisdiction can add org`)
+    console.log(` ✓ Organizations Validator attached to nice jurisdiction can add org`)
     passed++
   })
 
-  await NiceZEPValidatorContractInstance.methods.issueAttribute(
+  await NiceOrganizationsValidatorContractInstance.methods.issueAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,
@@ -964,7 +964,7 @@ module.exports = {test: async function (provider, testingContext) {
     passed++
   })
 
-  await NiceZEPValidatorContractInstance.methods.revokeAttribute(
+  await NiceOrganizationsValidatorContractInstance.methods.revokeAttribute(
     attributedAddress
   ).send({
     from: organizationAddress,

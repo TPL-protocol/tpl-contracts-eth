@@ -3,7 +3,7 @@ var Web3 = require('web3')
 web3Provider = new Web3('ws://localhost:8555')
 
 // import tests
-var testZEPValidator = require('./testZEPValidator.js')
+var testOrganizationsValidator = require('./testOrganizationsValidator.js')
 
 // run coverage tests
-testZEPValidator.test(web3Provider, 'coverage')
+testOrganizationsValidator.test(web3Provider, 'coverage')

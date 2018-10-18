@@ -7,7 +7,7 @@ import "../AttributeRegistryInterface.sol";
 /**
  * @title An instance of TPLRestrictedReceiverToken with an initial balance.
  */
-contract TPLTokenInstance is Initializable, TPLRestrictedReceiverToken {
+contract TPLTokenMock is Initializable, TPLRestrictedReceiverToken {
   /**
   * @notice The initializer function, with an associated attribute registry at
   * `registry`, an assignable attribute type with ID `validAttributeTypeID`, and

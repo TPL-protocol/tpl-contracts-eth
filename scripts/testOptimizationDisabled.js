@@ -57,7 +57,7 @@ if (status === 0) {
 }
 
 if (status === 0) {
-	command = runCommand('node scripts/testZEPValidatorDirect.js')
+	command = runCommand('node scripts/testOrganizationsValidatorDirect.js')
 	status = command[0]
 	message = command[1]
 }

@@ -5,7 +5,7 @@ const connection = connectionConfig.networks[applicationConfig.network]
 let web3Provider = connection.provider
 
 // import tests
-var testZEPValidator = require('./testZEPValidator.js')
+var testOrganizationsValidator = require('./testOrganizationsValidator.js')
 
 // run coverage tests
-testZEPValidator.test(web3Provider, 'direct')
+testOrganizationsValidator.test(web3Provider, 'direct')

@@ -1,7 +1,7 @@
 var fs = require('fs');
 
 const JurisdictionContractData = require('../build/contracts/BasicJurisdiction.json')
-const TPLTokenContractData = require('../build/contracts/TPLTokenInstance.json')
+const TPLTokenContractData = require('../build/contracts/TPLTokenMock.json')
 const applicationConfig = require('../config.js')
 const connectionConfig = require('../truffle.js')
 

@@ -8,9 +8,9 @@ import "./BasicJurisdictionInterface.sol";
 
 
 /**
- * @title Initial validator contract for the ZEP token.
+ * @title Organizations validator contract .
  */
-contract ZEPValidator is Initializable, Ownable, Pausable {
+contract OrganizationsValidator is Initializable, Ownable, Pausable {
   // declare events
   event OrganizationAdded(address organization, string name);
   
@@ -34,7 +34,7 @@ contract ZEPValidator is Initializable, Ownable, Pausable {
   // declare jurisdiction interface, used to set attributes in the jurisdiction
   BasicJurisdictionInterface private _jurisdiction;
 
-  // declare the attribute ID required by ZEP in order to transfer tokens
+  // declare the attribute ID required by the validator in order to transfer tokens
   uint256 private _validAttributeTypeID;
 
   // organizations are entities who can add attibutes to a number of accounts
@@ -53,7 +53,7 @@ contract ZEPValidator is Initializable, Ownable, Pausable {
   // accounts of all organizations are held in an array (enables enumeration)
   address[] private _organizationAccounts;
 
-  // issuance of new attributes may be paused and unpaused by the ZEP validator.
+  // issuance of new attributes may be paused and unpaused by the validator.
   bool private _issuancePaused;
 
   /**
@@ -293,8 +293,8 @@ contract ZEPValidator is Initializable, Ownable, Pausable {
   }
 
   /**
-  * @notice The initializer function for the ZEP token, with owner and pauser
-  * roles initially assigned to contract creator (`message.caller.address()`),
+  * @notice The initializer function for the OrganizationsValidator,
+  * with owner and pauser roles initially assigned to contract creator,
   * and with an associated jurisdiction at `jurisdiction` and an assignable
   * attribute type with ID `validAttributeTypeID`.
   * @param jurisdiction address The account of the associated jurisdiction.  
