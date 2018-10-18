@@ -1,10 +1,10 @@
-# Transaction Permission Layer (tpl-contracts)
+# Transaction Permission Layer EVM Package
 
 ![banner](images/TPL_01@3x.png)
 
 ![GitHub](https://img.shields.io/github/license/tpl-protocol/tpl-contracts.svg)
-[![Build Status](https://travis-ci.com/TPL-protocol/tpl-contracts.svg?branch=audit-fix-2)](https://travis-ci.com/TPL-protocol/tpl-contracts)
-[![Coverage Status](https://coveralls.io/repos/github/TPL-protocol/tpl-contracts/badge.svg?branch=audit-fix-2)](https://coveralls.io/github/TPL-protocol/tpl-contracts?branch=audit-fix-2)
+[![Build Status](https://travis-ci.com/TPL-protocol/tpl-contracts-eth.svg?branch=master)](https://travis-ci.com/TPL-protocol/tpl-contracts-eth)
+[![Coverage Status](https://coveralls.io/repos/github/TPL-protocol/tpl-contracts-eth/badge.svg?branch=master)](https://coveralls.io/github/TPL-protocol/tpl-contracts-eth?branch=master)
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg)](https://github.com/RichardLitt/standard-readme)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
@@ -12,9 +12,9 @@
 
 TPL is a method for assigning metadata (or **“attributes”**) to Ethereum addresses. These attributes then form the basis for designing systems that enforce permissions when performing certain transactions. For instance, using TPL, securities tokens can require that attributes be present and have an appropriate value every time a token is sent or received. This allows projects to remain compliant with regulations by **validating every single exchange between participants**, beyond just the initial offering.
 
-At the core of TPL is the [jurisdiction](https://github.com/TPL-protocol/tpl-contracts/blob/audit-fix-2/contracts/BasicJurisdiction.sol) — a single smart contract that links attributes to addresses. It implements an [Attribute Registry interface](https://github.com/TPL-protocol/tpl-contracts/blob/audit-fix-2/contracts/AttributeRegistryInterface.sol), where attributes are registered to addresses as a key-value pair with a single canonical value. [Implementing tokens](https://github.com/TPL-protocol/tpl-contracts/blob/audit-fix-2/contracts/examples/ERC20Permissioned.sol) then use this interface to request attributes that will inform whether to permit or reject the token transfer. Furthermore, implementers do not need to know any additional information on who set the attribute or how, and can check for the attribute value in a straightforward and efficient manner.
+At the core of TPL is the [jurisdiction](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/BasicJurisdiction.sol) — a single smart contract that links attributes to addresses. It implements an [Attribute Registry interface](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/AttributeRegistryInterface.sol), where attributes are registered to addresses as a key-value pair with a single canonical value. [Implementing tokens](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/token/TPLRestrictedReceiverTokenInterface.sol.sol) then use this interface to request attributes that will inform whether to permit or reject the token transfer. Furthermore, implementers do not need to know any additional information on who set the attribute or how, and can check for the attribute value in a straightforward and efficient manner.
 
-This jurisdiction does not set attributes itself, but rather defines a valid set of attribute types and designates [validators](https://github.com/TPL-protocol/tpl-contracts/blob/audit-fix-2/contracts/ZEPValidator.sol) that are approved to issue specific attribute types. The validators then either add attributes directly, or sign off-chain attribute approvals that can be relayed to the jurisdiction by the attribute holder or a designated third party. Considerable focus is also paid to ensuring that the jurisdiction and validators can revoke attributes, or entire categories of attributes, when necessary.
+This jurisdiction does not set attributes itself, but rather defines a valid set of attribute types and designates [validators](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/OrganizationsValidator.sol) that are approved to issue specific attribute types. The validators then either add attributes directly, or sign off-chain attribute approvals that can be relayed to the jurisdiction by the attribute holder or a designated third party. Considerable focus is also paid to ensuring that the jurisdiction and validators can revoke attributes, or entire categories of attributes, when necessary.
 
 TPL is designed to be flexible enough for a wide variety of use-cases beyond just securities tokens, and promotes a distributed architecture where information is shared between multiple jurisdictions with their own specialties. It does so by allowing jurisdictions to specify secondary sources for any type of attribute, delegating the query to another jurisdiction or other attribute registry. A basic jurisdiction is also available that implements a smaller subset of these features.
 
@@ -34,8 +34,8 @@ TPL is designed to be flexible enough for a wide variety of use-cases beyond jus
 First, ensure that [Node.js](https://nodejs.org/en/download/current/), [Yarn](https://yarnpkg.com/en/docs/install), and [ganache-cli](https://github.com/trufflesuite/ganache-cli#installation) are installed. Next, clone the repository and install dependencies:
 
 ```sh
-$ git clone -b audit-fix-2 https://github.com/TPL-protocol/tpl-contracts
-$ cd tpl-contracts
+$ git clone https://github.com/TPL-protocol/tpl-contracts-eth
+$ cd tpl-contracts-eth
 $ yarn install
 ```
 
@@ -86,26 +86,6 @@ $ yarn test
   * [ValidatorApprovalRemoved](#event-validatorapprovalremoved)
   * [AttributeAdded](#event-attributeadded)
   * [AttributeRemoved](#event-attributeremoved)
-* [ZEPValidator](#zepvalidator)
-  * [getJurisdiction](#function-getjurisdiction)
-  * [unpauseIssuance](#function-unpauseissuance)
-  * [addOrganization](#function-addorganization)
-  * [countOrganizations](#function-countorganizations)
-  * [getOrganization](#function-getorganization)
-  * [issuanceIsPaused](#function-issuanceispaused)
-  * [getOrganizationInformation](#function-getorganizationinformation)
-  * [getOrganizations](#function-getorganizations)
-  * [getValidAttributeTypeID](#function-getvalidattributetypeid)
-  * [setMaximumIssuableAttributes](#function-setmaximumissuableattributes)
-  * [issueAttribute](#function-issueattribute)
-  * [initialize](#function-initialize)
-  * [revokeAttribute](#function-revokeattribute)
-  * [pauseIssuance](#function-pauseissuance)
-  * [OrganizationAdded](#event-organizationadded)
-  * [AttributeIssued](#event-attributeissued)
-  * [AttributeRevoked](#event-attributerevoked)
-  * [IssuancePaused](#event-issuancepaused)
-  * [IssuanceUnpaused](#event-issuanceunpaused)
 * [TPLTokenInterface](#tpltokeninterface)
   * [getRegistry](#function-getregistry)
   * [canTransfer](#function-cantransfer)
@@ -585,13 +565,13 @@ Arguments
 | *uint256* | attributeTypeID | not indexed |
 
 
-### ZEPValidator
+### OrganizationsValidator
 ---
 
 
 #### *function* getJurisdiction
 
-ZEPValidator.getJurisdiction() `view` `1fa1087c`
+OrganizationsValidator.getJurisdiction() `view` `1fa1087c`
 
 **Get the account of the utilized jurisdiction.**
 
@@ -606,7 +586,7 @@ Outputs
 
 #### *function* unpauseIssuance
 
-ZEPValidator.unpauseIssuance() `nonpayable` `2585a270`
+OrganizationsValidator.unpauseIssuance() `nonpayable` `2585a270`
 
 **Unpause issuance of new attributes by organizations.**
 
@@ -616,7 +596,7 @@ ZEPValidator.unpauseIssuance() `nonpayable` `2585a270`
 
 #### *function* addOrganization
 
-ZEPValidator.addOrganization(organization, maximumIssuableAttributes, name) `nonpayable` `35357c7c`
+OrganizationsValidator.addOrganization(organization, maximumIssuableAttributes, name) `nonpayable` `35357c7c`
 
 **Add an organization at account `organization` and with an initial allocation of issuable attributes of `maximumIssuableAttributes`.**
 
@@ -632,7 +612,7 @@ Inputs
 
 #### *function* countOrganizations
 
-ZEPValidator.countOrganizations() `view` `379c31bf`
+OrganizationsValidator.countOrganizations() `view` `379c31bf`
 
 **Count the number of organizations defined by the validator.**
 
@@ -647,7 +627,7 @@ Outputs
 
 #### *function* getOrganization
 
-ZEPValidator.getOrganization(index) `view` `4526f690`
+OrganizationsValidator.getOrganization(index) `view` `4526f690`
 
 **Get the account of the organization at index `index`.**
 
@@ -666,7 +646,7 @@ Outputs
 
 #### *function* issuanceIsPaused
 
-ZEPValidator.issuanceIsPaused() `view` `6c823242`
+OrganizationsValidator.issuanceIsPaused() `view` `6c823242`
 
 **Determine if attribute issuance is currently paused.**
 
@@ -681,7 +661,7 @@ Outputs
 
 #### *function* getOrganizationInformation
 
-ZEPValidator.getOrganizationInformation(organization) `view` `83235a0a`
+OrganizationsValidator.getOrganizationInformation(organization) `view` `83235a0a`
 
 **Get information about the organization at account `account`.**
 
@@ -704,7 +684,7 @@ Outputs
 
 #### *function* getOrganizations
 
-ZEPValidator.getOrganizations() `view` `9754a3a8`
+OrganizationsValidator.getOrganizations() `view` `9754a3a8`
 
 **Get the accounts of all available organizations.**
 
@@ -719,7 +699,7 @@ Outputs
 
 #### *function* getValidAttributeTypeID
 
-ZEPValidator.getValidAttributeTypeID() `view` `98a11d8c`
+OrganizationsValidator.getValidAttributeTypeID() `view` `98a11d8c`
 
 **Get the ID of the attribute type that the validator can issue.**
 
@@ -734,7 +714,7 @@ Outputs
 
 #### *function* setMaximumIssuableAttributes
 
-ZEPValidator.setMaximumIssuableAttributes(organization, maximumIssuableAttributes) `nonpayable` `a2a71da5`
+OrganizationsValidator.setMaximumIssuableAttributes(organization, maximumIssuableAttributes) `nonpayable` `a2a71da5`
 
 **Modify an organization at account `organization` to change the number of issuable attributes to `maximumIssuableAttributes`.**
 
@@ -750,7 +730,7 @@ Inputs
 
 #### *function* issueAttribute
 
-ZEPValidator.issueAttribute(account) `nonpayable` `c828b82b`
+OrganizationsValidator.issueAttribute(account) `nonpayable` `c828b82b`
 
 **Add an attribute to account `account`.**
 
@@ -765,9 +745,9 @@ Inputs
 
 #### *function* initialize
 
-ZEPValidator.initialize(jurisdiction, validAttributeTypeID) `nonpayable` `cd6dc687`
+OrganizationsValidator.initialize(jurisdiction, validAttributeTypeID) `nonpayable` `cd6dc687`
 
-**The initializer function for the ZEP token, with owner and pauser roles initially assigned to contract creator (`message.caller.address()`), and with an associated jurisdiction at `jurisdiction` and an assignable attribute type with ID `validAttributeTypeID`.**
+**The initializer function for the Organinzations Validator, with owner and pauser roles initially assigned to contract creator (`message.caller.address()`), and with an associated jurisdiction at `jurisdiction` and an assignable attribute type with ID `validAttributeTypeID`.**
 
 > Note that it may be appropriate to require that the referenced jurisdiction supports the correct interface via EIP-165 and that the validator has been approved to issue attributes of the specified type when initializing the contract - it is not currently required.
 
@@ -781,7 +761,7 @@ Inputs
 
 #### *function* revokeAttribute
 
-ZEPValidator.revokeAttribute(account) `nonpayable` `da15b9bd`
+OrganizationsValidator.revokeAttribute(account) `nonpayable` `da15b9bd`
 
 **Revoke an attribute from account `account`.**
 
@@ -796,7 +776,7 @@ Inputs
 
 #### *function* pauseIssuance
 
-ZEPValidator.pauseIssuance() `nonpayable` `df23cbb1`
+OrganizationsValidator.pauseIssuance() `nonpayable` `df23cbb1`
 
 **Pause all issuance of new attributes by organizations.**
 
@@ -805,7 +785,7 @@ ZEPValidator.pauseIssuance() `nonpayable` `df23cbb1`
 
 #### *event* OrganizationAdded
 
-ZEPValidator.OrganizationAdded(organization, name) `99387386`
+OrganizationsValidator.OrganizationAdded(organization, name) `99387386`
 
 Arguments
 
@@ -816,7 +796,7 @@ Arguments
 
 #### *event* AttributeIssued
 
-ZEPValidator.AttributeIssued(organization, attributee) `1f8ea1fa`
+OrganizationsValidator.AttributeIssued(organization, attributee) `1f8ea1fa`
 
 Arguments
 
@@ -827,7 +807,7 @@ Arguments
 
 #### *event* AttributeRevoked
 
-ZEPValidator.AttributeRevoked(organization, attributee) `2f7805b6`
+OrganizationsValidator.AttributeRevoked(organization, attributee) `2f7805b6`
 
 Arguments
 
@@ -838,17 +818,17 @@ Arguments
 
 #### *event* IssuancePaused
 
-ZEPValidator.IssuancePaused() `df34d30c`
+OrganizationsValidator.IssuancePaused() `df34d30c`
 
 
 
 #### *event* IssuanceUnpaused
 
-ZEPValidator.IssuanceUnpaused() `940c41df`
+OrganizationsValidator.IssuanceUnpaused() `940c41df`
 
 
 
-### TPLTokenInterface
+### TPLRestrictedReceiverTokenInterface [outdated]
 ---
 
 
@@ -914,10 +894,10 @@ Outputs
 
 *NOTE: This section is out-of-date and is included for now for the sake of completeness.*
 
-* An **attribute registry** is any smart contract that implements an [interface](https://github.com/TPL-protocol/tpl-contracts/blob/audit/contracts/AttributeRegistry.sol) containing a small set of external methods related to determining the existence of attributes. It enables implementing tokens and other contracts to avoid much of the complexity inherent in attribute validation and assignment by instead retrieving information from a trusted source. Attributes can be considered a lightweight alternative to claims as laid out in [EIP-735](https://github.com/ethereum/EIPs/issues/735).
+* An **attribute registry** is any smart contract that implements an [interface](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/AttributeRegistry.sol) containing a small set of external methods related to determining the existence of attributes. It enables implementing tokens and other contracts to avoid much of the complexity inherent in attribute validation and assignment by instead retrieving information from a trusted source. Attributes can be considered a lightweight alternative to claims as laid out in [EIP-735](https://github.com/ethereum/EIPs/issues/735).
 
 
-* The standard **jurisdiction** is [implemented](https://github.com/TPL-protocol/tpl-contracts/blob/audit/contracts/StandardJurisdiction.sol) as a single contract that stores validated attributes for each participant, where each attribute is a `uint256 => uint256` key-value pair. It implements an `AttributeRegistry` interface along with associated [EIP-165](https://eips.ethereum.org/EIPS/eip-165) support, allowing other contracts to identify and confirm attributes recognized by the jurisdiction. It also implements additional [basic](https://github.com/TPL-protocol/tpl-contracts/blob/audit/contracts/BasicJurisdictionInterface.sol) and [extended](https://github.com/TPL-protocol/tpl-contracts/blob/audit/contracts/ExtendedJurisdictionInterface.sol) interfaces with methods and events that provide further context regarding actions within the jurisdiction.
+* The standard **jurisdiction** is [implemented](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/StandardJurisdiction.sol) as a single contract that stores validated attributes for each participant, where each attribute is a `uint256 => uint256` key-value pair. It implements an `AttributeRegistry` interface along with associated [EIP-165](https://eips.ethereum.org/EIPS/eip-165) support, allowing other contracts to identify and confirm attributes recognized by the jurisdiction. It also implements additional [basic](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/BasicJurisdictionInterface.sol) and [extended](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/ExtendedJurisdictionInterface.sol) interfaces with methods and events that provide further context regarding actions within the jurisdiction.
 
 
 * A jurisdiction defines **attribute types**, or permitted attribute groups, with the following fields *(with optional fields set to* `0 | false | 0x | ""`  *depending on the field's type)*:
@@ -951,7 +931,7 @@ Outputs
     * remove attributes from participants as required.
 
 
-* The **TPLToken** is a standard [OpenZeppelin ERC20 token](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol) that enforces attribute checks during every token transfer. For this [implementation](https://github.com/TPL-protocol/tpl-contracts/blob/audit/contracts/TPLToken.sol), the token checks the jurisdiction's registry for an attribute used to whitelist valid token recipients. The additional overhead for each transaction in the minimum-case is **4156 gas**, with 1512 used to execute jurisdiction contract logic and 2644 for general "plumbing" (the overhead of checking against an external call to the registry that simply returns `true`). *(NOTE: the attributes defined in the jurisdiction and required by TPLToken have been arbitrarily defined for this PoC, and are not intended to serve as a proposal for the attributes that will be used for validating transactions.)*
+* The **TPLRestrictedReceiverToken** is a standard [OpenZeppelin ERC20 token](https://github.com/OpenZeppelin/openzeppelin-solidity/blob/master/contracts/token/ERC20/StandardToken.sol) that enforces attribute checks during every token transfer. For this [implementation](https://github.com/TPL-protocol/tpl-contracts-eth/blob/master/contracts/TPLToken.sol), the token checks the jurisdiction's registry for an attribute used to whitelist valid token recipients. The additional overhead for each transaction in the minimum-case is **4156 gas**, with 1512 used to execute jurisdiction contract logic and 2644 for general "plumbing" (the overhead of checking against an external call to the registry that simply returns `true`). *(NOTE: the attributes defined in the jurisdiction and required by TPLToken have been arbitrarily defined for this PoC, and are not intended to serve as a proposal for the attributes that will be used for validating transactions.)*
 
 
 #### Attribute scope
