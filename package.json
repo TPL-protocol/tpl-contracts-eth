@@ -5,7 +5,9 @@
   "license": "MIT",
   "dependencies": {
     "openzeppelin-zos": "git+https://github.com/openzeppelin/openzeppelin-zos#6956b93",
-    "web3": "^1.0.0-beta.35"
+    "web3": "^1.0.0-beta.35",
+    "zos": "^2.0.0-rc.0",
+    "zos-lib": "^2.0.0-rc.0"
   },
   "devDependencies": {
     "coveralls": "^3.0.2",
