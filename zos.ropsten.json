@@ -1,0 +1,600 @@
+{
+  "contracts": {
+    "OrganizationsValidator": {
+      "address": "0x76b397da4007aa70c034c986411d22dc2a665c5e",
+      "constructorCode": "60806040526099805460ff1916905534801561001a57600080fd5b50611cdc8061002a6000396000f300",
+      "bodyBytecodeHash": "d0291a3d6beb9e29dad37662bc93231584be8e0c63b77f573cc43b7898888840",
+      "localBytecodeHash": "633810fce6e5e536f6fc9a3fdcac36905f0818673f86fe34ab87f33a40977e7f",
+      "deployedBytecodeHash": "633810fce6e5e536f6fc9a3fdcac36905f0818673f86fe34ab87f33a40977e7f",
+      "types": {
+        "t_bool": {
+          "id": "t_bool",
+          "kind": "elementary",
+          "label": "bool"
+        },
+        "t_uint256": {
+          "id": "t_uint256",
+          "kind": "elementary",
+          "label": "uint256"
+        },
+        "t_array:50<t_uint256>": {
+          "id": "t_array:50<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "50",
+          "kind": "array",
+          "label": "uint256[50]"
+        },
+        "t_address": {
+          "id": "t_address",
+          "kind": "elementary",
+          "label": "address"
+        },
+        "t_struct<Roles.Role>": {
+          "id": "t_struct<Roles.Role>",
+          "kind": "struct",
+          "label": "Roles.Role",
+          "members": [
+            {
+              "label": "bearer",
+              "astId": 1987,
+              "type": "t_mapping<t_bool>",
+              "src": "146:32:7"
+            }
+          ]
+        },
+        "t_mapping<t_bool>": {
+          "id": "t_mapping<t_bool>",
+          "valueType": "t_bool",
+          "label": "mapping(key => bool)",
+          "kind": "mapping"
+        },
+        "t_struct<OrganizationsValidator.Organization>": {
+          "id": "t_struct<OrganizationsValidator.Organization>",
+          "kind": "struct",
+          "label": "OrganizationsValidator.Organization",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 1247,
+              "type": "t_bool",
+              "src": "1220:11:3"
+            },
+            {
+              "label": "maximumAccounts",
+              "astId": 1249,
+              "type": "t_uint256",
+              "src": "1237:23:3"
+            },
+            {
+              "label": "name",
+              "astId": 1251,
+              "type": "t_string",
+              "src": "1316:11:3"
+            },
+            {
+              "label": "accounts",
+              "astId": 1254,
+              "type": "t_array:dyn<t_address>",
+              "src": "1333:18:3"
+            },
+            {
+              "label": "issuedAccounts",
+              "astId": 1258,
+              "type": "t_mapping<t_bool>",
+              "src": "1357:39:3"
+            },
+            {
+              "label": "issuedAccountsIndex",
+              "astId": 1262,
+              "type": "t_mapping<t_uint256>",
+              "src": "1402:47:3"
+            }
+          ]
+        },
+        "t_string": {
+          "id": "t_string",
+          "kind": "elementary",
+          "label": "string"
+        },
+        "t_array:dyn<t_address>": {
+          "id": "t_array:dyn<t_address>",
+          "valueType": "t_address",
+          "length": "dyn",
+          "kind": "array",
+          "label": "address[]"
+        },
+        "t_mapping<t_uint256>": {
+          "id": "t_mapping<t_uint256>",
+          "valueType": "t_uint256",
+          "label": "mapping(key => uint256)",
+          "kind": "mapping"
+        },
+        "t_mapping<t_struct<OrganizationsValidator.Organization>>": {
+          "id": "t_mapping<t_struct<OrganizationsValidator.Organization>>",
+          "valueType": "t_struct<OrganizationsValidator.Organization>",
+          "label": "mapping(key => OrganizationsValidator.Organization)",
+          "kind": "mapping"
+        }
+      },
+      "storage": [
+        {
+          "contract": "Initializable",
+          "path": "zos-lib/contracts/Initializable.sol",
+          "label": "initialized",
+          "astId": 3033,
+          "type": "t_bool",
+          "src": "749:24:14"
+        },
+        {
+          "contract": "Initializable",
+          "path": "zos-lib/contracts/Initializable.sol",
+          "label": "initializing",
+          "astId": 3035,
+          "type": "t_bool",
+          "src": "868:25:14"
+        },
+        {
+          "contract": "Initializable",
+          "path": "zos-lib/contracts/Initializable.sol",
+          "label": "______gap",
+          "astId": 3084,
+          "type": "t_array:50<t_uint256>",
+          "src": "1883:29:14"
+        },
+        {
+          "contract": "Ownable",
+          "path": "openzeppelin-eth/contracts/ownership/Ownable.sol",
+          "label": "_owner",
+          "astId": 2403,
+          "type": "t_address",
+          "src": "301:22:11"
+        },
+        {
+          "contract": "Ownable",
+          "path": "openzeppelin-eth/contracts/ownership/Ownable.sol",
+          "label": "______gap",
+          "astId": 2508,
+          "type": "t_array:50<t_uint256>",
+          "src": "2057:29:11"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "openzeppelin-eth/contracts/access/roles/PauserRole.sol",
+          "label": "pausers",
+          "astId": 2079,
+          "type": "t_struct<Roles.Role>",
+          "src": "264:26:8"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "openzeppelin-eth/contracts/access/roles/PauserRole.sol",
+          "label": "______gap",
+          "astId": 2178,
+          "type": "t_array:50<t_uint256>",
+          "src": "990:29:8"
+        },
+        {
+          "contract": "Pausable",
+          "path": "openzeppelin-eth/contracts/lifecycle/Pausable.sol",
+          "label": "_paused",
+          "astId": 2194,
+          "type": "t_bool",
+          "src": "318:28:9"
+        },
+        {
+          "contract": "Pausable",
+          "path": "openzeppelin-eth/contracts/lifecycle/Pausable.sol",
+          "label": "______gap",
+          "astId": 2267,
+          "type": "t_array:50<t_uint256>",
+          "src": "1260:29:9"
+        },
+        {
+          "contract": "OrganizationsValidator",
+          "path": "contracts/OrganizationsValidator.sol",
+          "label": "_registry",
+          "astId": 1241,
+          "type": "t_address",
+          "src": "808:44:3"
+        },
+        {
+          "contract": "OrganizationsValidator",
+          "path": "contracts/OrganizationsValidator.sol",
+          "label": "_jurisdiction",
+          "astId": 1243,
+          "type": "t_address",
+          "src": "937:48:3"
+        },
+        {
+          "contract": "OrganizationsValidator",
+          "path": "contracts/OrganizationsValidator.sol",
+          "label": "_validAttributeTypeID",
+          "astId": 1245,
+          "type": "t_uint256",
+          "src": "1074:37:3"
+        },
+        {
+          "contract": "OrganizationsValidator",
+          "path": "contracts/OrganizationsValidator.sol",
+          "label": "_organizations",
+          "astId": 1267,
+          "type": "t_mapping<t_struct<OrganizationsValidator.Organization>>",
+          "src": "1538:55:3"
+        },
+        {
+          "contract": "OrganizationsValidator",
+          "path": "contracts/OrganizationsValidator.sol",
+          "label": "_organizationAccounts",
+          "astId": 1270,
+          "type": "t_array:dyn<t_address>",
+          "src": "1676:39:3"
+        },
+        {
+          "contract": "OrganizationsValidator",
+          "path": "contracts/OrganizationsValidator.sol",
+          "label": "_issuancePaused",
+          "astId": 1272,
+          "type": "t_bool",
+          "src": "1797:28:3"
+        }
+      ],
+      "warnings": {
+        "hasConstructor": false,
+        "hasSelfDestruct": false,
+        "hasDelegateCall": false,
+        "hasInitialValuesInDeclarations": false,
+        "uninitializedBaseContracts": []
+      }
+    },
+    "BasicJurisdiction": {
+      "address": "0xdaa7a91a1a2afc654093101413c49adb174a7a8e",
+      "constructorCode": "60806040526099805460ff1916905534801561001a57600080fd5b5061280a8061002a6000396000f300",
+      "bodyBytecodeHash": "5823c70582e05f9428dbef1d52c34bdae4c5026a3324d7dc22e9c0551ed7ce02",
+      "localBytecodeHash": "11a967bd2e5fbc2d3c28c16246e8576104232393e4b04334ba6e06f334d2e860",
+      "deployedBytecodeHash": "11a967bd2e5fbc2d3c28c16246e8576104232393e4b04334ba6e06f334d2e860",
+      "types": {
+        "t_bool": {
+          "id": "t_bool",
+          "kind": "elementary",
+          "label": "bool"
+        },
+        "t_uint256": {
+          "id": "t_uint256",
+          "kind": "elementary",
+          "label": "uint256"
+        },
+        "t_array:50<t_uint256>": {
+          "id": "t_array:50<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "50",
+          "kind": "array",
+          "label": "uint256[50]"
+        },
+        "t_address": {
+          "id": "t_address",
+          "kind": "elementary",
+          "label": "address"
+        },
+        "t_struct<Roles.Role>": {
+          "id": "t_struct<Roles.Role>",
+          "kind": "struct",
+          "label": "Roles.Role",
+          "members": [
+            {
+              "label": "bearer",
+              "astId": 1987,
+              "type": "t_mapping<t_bool>",
+              "src": "146:32:7"
+            }
+          ]
+        },
+        "t_mapping<t_bool>": {
+          "id": "t_mapping<t_bool>",
+          "valueType": "t_bool",
+          "label": "mapping(key => bool)",
+          "kind": "mapping"
+        },
+        "t_struct<BasicJurisdiction.AttributeType>": {
+          "id": "t_struct<BasicJurisdiction.AttributeType>",
+          "kind": "struct",
+          "label": "BasicJurisdiction.AttributeType",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 69,
+              "type": "t_bool",
+              "src": "1073:11:1"
+            },
+            {
+              "label": "index",
+              "astId": 71,
+              "type": "t_uint256",
+              "src": "1090:13:1"
+            },
+            {
+              "label": "description",
+              "astId": 73,
+              "type": "t_string",
+              "src": "1169:18:1"
+            },
+            {
+              "label": "approvedValidators",
+              "astId": 77,
+              "type": "t_mapping<t_bool>",
+              "src": "1193:43:1"
+            }
+          ]
+        },
+        "t_string": {
+          "id": "t_string",
+          "kind": "elementary",
+          "label": "string"
+        },
+        "t_mapping<t_struct<BasicJurisdiction.AttributeType>>": {
+          "id": "t_mapping<t_struct<BasicJurisdiction.AttributeType>>",
+          "valueType": "t_struct<BasicJurisdiction.AttributeType>",
+          "label": "mapping(key => BasicJurisdiction.AttributeType)",
+          "kind": "mapping"
+        },
+        "t_struct<BasicJurisdiction.IssuedAttribute>": {
+          "id": "t_struct<BasicJurisdiction.IssuedAttribute>",
+          "kind": "struct",
+          "label": "BasicJurisdiction.IssuedAttribute",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 62,
+              "type": "t_bool",
+              "src": "906:11:1"
+            },
+            {
+              "label": "validator",
+              "astId": 64,
+              "type": "t_address",
+              "src": "923:17:1"
+            },
+            {
+              "label": "value",
+              "astId": 66,
+              "type": "t_uint256",
+              "src": "946:13:1"
+            }
+          ]
+        },
+        "t_mapping<t_struct<BasicJurisdiction.IssuedAttribute>>": {
+          "id": "t_mapping<t_struct<BasicJurisdiction.IssuedAttribute>>",
+          "valueType": "t_struct<BasicJurisdiction.IssuedAttribute>",
+          "label": "mapping(key => BasicJurisdiction.IssuedAttribute)",
+          "kind": "mapping"
+        },
+        "t_struct<BasicJurisdiction.Validator>": {
+          "id": "t_struct<BasicJurisdiction.Validator>",
+          "kind": "struct",
+          "label": "BasicJurisdiction.Validator",
+          "members": [
+            {
+              "label": "exists",
+              "astId": 55,
+              "type": "t_bool",
+              "src": "674:11:1"
+            },
+            {
+              "label": "index",
+              "astId": 57,
+              "type": "t_uint256",
+              "src": "691:13:1"
+            },
+            {
+              "label": "description",
+              "astId": 59,
+              "type": "t_string",
+              "src": "769:18:1"
+            }
+          ]
+        },
+        "t_mapping<t_struct<BasicJurisdiction.Validator>>": {
+          "id": "t_mapping<t_struct<BasicJurisdiction.Validator>>",
+          "valueType": "t_struct<BasicJurisdiction.Validator>",
+          "label": "mapping(key => BasicJurisdiction.Validator)",
+          "kind": "mapping"
+        },
+        "t_bytes32": {
+          "id": "t_bytes32",
+          "kind": "elementary",
+          "label": "bytes32"
+        },
+        "t_mapping<t_bytes32>": {
+          "id": "t_mapping<t_bytes32>",
+          "valueType": "t_bytes32",
+          "label": "mapping(key => bytes32)",
+          "kind": "mapping"
+        },
+        "t_array:dyn<t_uint256>": {
+          "id": "t_array:dyn<t_uint256>",
+          "valueType": "t_uint256",
+          "length": "dyn",
+          "kind": "array",
+          "label": "uint256[]"
+        },
+        "t_mapping<t_array:dyn<t_uint256>>": {
+          "id": "t_mapping<t_array:dyn<t_uint256>>",
+          "valueType": "t_array:dyn<t_uint256>",
+          "label": "mapping(key => uint256[])",
+          "kind": "mapping"
+        },
+        "t_mapping<t_uint256>": {
+          "id": "t_mapping<t_uint256>",
+          "valueType": "t_uint256",
+          "label": "mapping(key => uint256)",
+          "kind": "mapping"
+        },
+        "t_array:dyn<t_address>": {
+          "id": "t_array:dyn<t_address>",
+          "valueType": "t_address",
+          "length": "dyn",
+          "kind": "array",
+          "label": "address[]"
+        }
+      },
+      "storage": [
+        {
+          "contract": "Initializable",
+          "path": "zos-lib/contracts/Initializable.sol",
+          "label": "initialized",
+          "astId": 3033,
+          "type": "t_bool",
+          "src": "749:24:14"
+        },
+        {
+          "contract": "Initializable",
+          "path": "zos-lib/contracts/Initializable.sol",
+          "label": "initializing",
+          "astId": 3035,
+          "type": "t_bool",
+          "src": "868:25:14"
+        },
+        {
+          "contract": "Initializable",
+          "path": "zos-lib/contracts/Initializable.sol",
+          "label": "______gap",
+          "astId": 3084,
+          "type": "t_array:50<t_uint256>",
+          "src": "1883:29:14"
+        },
+        {
+          "contract": "Ownable",
+          "path": "openzeppelin-eth/contracts/ownership/Ownable.sol",
+          "label": "_owner",
+          "astId": 2403,
+          "type": "t_address",
+          "src": "301:22:11"
+        },
+        {
+          "contract": "Ownable",
+          "path": "openzeppelin-eth/contracts/ownership/Ownable.sol",
+          "label": "______gap",
+          "astId": 2508,
+          "type": "t_array:50<t_uint256>",
+          "src": "2057:29:11"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "openzeppelin-eth/contracts/access/roles/PauserRole.sol",
+          "label": "pausers",
+          "astId": 2079,
+          "type": "t_struct<Roles.Role>",
+          "src": "264:26:8"
+        },
+        {
+          "contract": "PauserRole",
+          "path": "openzeppelin-eth/contracts/access/roles/PauserRole.sol",
+          "label": "______gap",
+          "astId": 2178,
+          "type": "t_array:50<t_uint256>",
+          "src": "990:29:8"
+        },
+        {
+          "contract": "Pausable",
+          "path": "openzeppelin-eth/contracts/lifecycle/Pausable.sol",
+          "label": "_paused",
+          "astId": 2194,
+          "type": "t_bool",
+          "src": "318:28:9"
+        },
+        {
+          "contract": "Pausable",
+          "path": "openzeppelin-eth/contracts/lifecycle/Pausable.sol",
+          "label": "______gap",
+          "astId": 2267,
+          "type": "t_array:50<t_uint256>",
+          "src": "1260:29:9"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_attributeTypes",
+          "astId": 82,
+          "type": "t_mapping<t_struct<BasicJurisdiction.AttributeType>>",
+          "src": "1326:57:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_issuedAttributes",
+          "astId": 88,
+          "type": "t_mapping<t_struct<BasicJurisdiction.IssuedAttribute>>",
+          "src": "1466:81:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_validators",
+          "astId": 92,
+          "type": "t_mapping<t_struct<BasicJurisdiction.Validator>>",
+          "src": "1632:49:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_attributeTypeHashes",
+          "astId": 96,
+          "type": "t_mapping<t_bytes32>",
+          "src": "1759:56:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_validatorApprovals",
+          "astId": 101,
+          "type": "t_mapping<t_array:dyn<t_uint256>>",
+          "src": "1880:57:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_validatorApprovalsIndex",
+          "astId": 107,
+          "type": "t_mapping<t_uint256>",
+          "src": "2005:80:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_attributeIDs",
+          "astId": 110,
+          "type": "t_array:dyn<t_uint256>",
+          "src": "2170:31:1"
+        },
+        {
+          "contract": "BasicJurisdiction",
+          "path": "contracts/BasicJurisdiction.sol",
+          "label": "_validatorAccounts",
+          "astId": 113,
+          "type": "t_array:dyn<t_address>",
+          "src": "2277:36:1"
+        }
+      ],
+      "warnings": {
+        "hasConstructor": false,
+        "hasSelfDestruct": false,
+        "hasDelegateCall": false,
+        "hasInitialValuesInDeclarations": false,
+        "uninitializedBaseContracts": []
+      }
+    }
+  },
+  "solidityLibs": {},
+  "proxies": {},
+  "zosversion": "2",
+  "frozen": true,
+  "app": {
+    "address": "0x815538767f26555d1366a123c6509a84e9dac764"
+  },
+  "package": {
+    "address": "0x5f259b85575142b4aaa32e352d785ed797b751b1"
+  },
+  "provider": {
+    "address": "0xe018886cee7224ad4e88530350df29a12ece6e27"
+  },
+  "version": "1.0.0"
+}
