@@ -2,6 +2,7 @@
 
 ![banner](images/TPL_01@3x.png)
 
+[![NPM Package](https://img.shields.io/npm/v/tpl-contracts-eth.svg?style=flat-square)](https://www.npmjs.org/package/tpl-contracts-eth)
 ![GitHub](https://img.shields.io/github/license/tpl-protocol/tpl-contracts.svg)
 [![Build Status](https://travis-ci.com/TPL-protocol/tpl-contracts-eth.svg?branch=master)](https://travis-ci.com/TPL-protocol/tpl-contracts-eth)
 [![Coverage Status](https://coveralls.io/repos/github/TPL-protocol/tpl-contracts-eth/badge.svg?branch=master)](https://coveralls.io/github/TPL-protocol/tpl-contracts-eth?branch=master)
