@@ -36,7 +36,7 @@ async function main() {
     gasPrice: '1000000000'
   })
 
-  await JurisdictionContractInstance.methods.initialize().send({
+  await JurisdictionContractInstance.methods.initialize(address).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9

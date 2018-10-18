@@ -576,10 +576,11 @@ contract BasicJurisdiction is Initializable, Ownable, Pausable, AttributeRegistr
   /**
   * @notice The initializer function for the jurisdiction, with owner and pauser
   * roles initially assigned to contract creator (`message.caller.address()`).
+  * @param sender address The account to be set as pauser and owner of the contract.
   */
-  function initialize() public initializer {
-    Ownable.initialize(msg.sender);
-    Pausable.initialize(msg.sender);
+  function initialize(address sender) public initializer {
+    Ownable.initialize(sender);
+    Pausable.initialize(sender);
   }
 
   /**

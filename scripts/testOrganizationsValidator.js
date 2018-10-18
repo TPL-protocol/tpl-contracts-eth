@@ -156,7 +156,7 @@ module.exports = {test: async function (provider, testingContext) {
   console.log(' ✓ contracts deploy successfully')
   passed++
 
-  await JurisdictionContractInstance.methods.initialize().send({
+  await JurisdictionContractInstance.methods.initialize(address).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9
@@ -187,7 +187,8 @@ module.exports = {test: async function (provider, testingContext) {
 
   await OrganizationsValidatorContractInstance.methods.initialize(
     JurisdictionContractInstance.options.address,
-    OrganizationsValidatorAttributeID
+    OrganizationsValidatorAttributeID,
+    address
   ).send({
     from: address,
     gas: 5000000,
@@ -201,7 +202,8 @@ module.exports = {test: async function (provider, testingContext) {
 
   await NiceOrganizationsValidatorContractInstance.methods.initialize(
     NiceJurisdictionContractInstance.options.address,
-    OrganizationsValidatorAttributeID
+    OrganizationsValidatorAttributeID,
+    address
   ).send({
     from: address,
     gas: 5000000,
@@ -215,7 +217,8 @@ module.exports = {test: async function (provider, testingContext) {
 
   await NaughtyOrganizationsValidatorContractInstance.methods.initialize(
     NaughtyJurisdictionContractInstance.options.address,
-    OrganizationsValidatorAttributeID
+    OrganizationsValidatorAttributeID,
+    address
   ).send({
     from: address,
     gas: 5000000,

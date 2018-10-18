@@ -92,7 +92,7 @@ module.exports = {test: async function (provider, testingContext) {
   console.log(' ✓ jurisdiction contract deploys successfully')
   passed++
 
-  await Jurisdiction.methods.initialize().send({
+  await Jurisdiction.methods.initialize(address).send({
     from: address,
     gas: 5000000,
     gasPrice: 10 ** 9

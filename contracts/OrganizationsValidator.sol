@@ -299,6 +299,7 @@ contract OrganizationsValidator is Initializable, Ownable, Pausable {
   * attribute type with ID `validAttributeTypeID`.
   * @param jurisdiction address The account of the associated jurisdiction.  
   * @param validAttributeTypeID uint256 The ID of the attribute type to issue.
+  * @param sender address The account to be set as pauser and owner of the contract.
   * @dev Note that it may be appropriate to require that the referenced
   * jurisdiction supports the correct interface via EIP-165 and that the
   * validator has been approved to issue attributes of the specified type when
@@ -306,13 +307,14 @@ contract OrganizationsValidator is Initializable, Ownable, Pausable {
   */
   function initialize(
     address jurisdiction,
-    uint256 validAttributeTypeID
+    uint256 validAttributeTypeID,
+    address sender
   )
     public
     initializer
   {
-    Ownable.initialize(msg.sender);
-    Pausable.initialize(msg.sender);
+    Ownable.initialize(sender);
+    Pausable.initialize(sender);
     _issuancePaused = false;
     _registry = AttributeRegistryInterface(jurisdiction);
     _jurisdiction = BasicJurisdictionInterface(jurisdiction);
