@@ -9,7 +9,7 @@
 [![standard-readme compliant](https://img.shields.io/badge/standard--readme-OK-green.svg)](https://github.com/RichardLitt/standard-readme)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-> Contracts implementing a TPL jurisdiction and an ERC20-enforced TPL.
+> EVM package including TPL jurisdiction implementation and an ERC20-enforced TPL.
 
 TPL is a method for assigning metadata (or **“attributes”**) to Ethereum addresses. These attributes then form the basis for designing systems that enforce permissions when performing certain transactions. For instance, using TPL, securities tokens can require that attributes be present and have an appropriate value every time a token is sent or received. This allows projects to remain compliant with regulations by **validating every single exchange between participants**, beyond just the initial offering.
 
@@ -22,7 +22,6 @@ TPL is designed to be flexible enough for a wide variety of use-cases beyond jus
 
 ## Table of Contents
 
-- [Install](#install)
 - [Usage](#usage)
 - [API](#api)
 - [Additional Information](#additional-information)
@@ -30,28 +29,39 @@ TPL is designed to be flexible enough for a wide variety of use-cases beyond jus
 - [Contribute](#contribute)
 - [License](#license)
 
-
-## Install
-First, ensure that [Node.js](https://nodejs.org/en/download/current/), [Yarn](https://yarnpkg.com/en/docs/install), and [ganache-cli](https://github.com/trufflesuite/ganache-cli#installation) are installed. Next, clone the repository and install dependencies:
-
-```sh
-$ git clone https://github.com/TPL-protocol/tpl-contracts-eth
-$ cd tpl-contracts-eth
-$ yarn install
-```
-
 ## Usage
-To interact with these contracts, start up a testRPC node in a seperate terminal window:
-```sh
-$ ganache-cli
+
+To deploy an upgradeable instance of TPL contracts using [ZeppelinOS](http://zeppelinos.org/), you can [link this EVM package](https://docs.zeppelinos.org/docs/linking.html) and create a new instance. This will reuse the pre-deployed logic contracts on either mainnet, ropsten, rinkeby, or kovan, saving both gas and time.
+
+```bash
+$ npm install -g zos
+$ zos init YourProject
+$ zos link tpl-contracts-eth
+$ zos push --network rinkeby # if working on a local network, add --deploy-dependencies
+> Connecting to dependency tpl-contracts-eth
+$ zos create tpl-contracts-eth/BasicJurisdiction --args "$OWNER" --network rinkeby --from $ADMIN
+> Instance created at JURISDICTION_ADDRESS
 ```
 
-Then, to run tests:
-```sh
-$ yarn run coverage
-$ yarn test
+> Note: Make sure to pick different addresses for OWNER and ADMIN. The ADMIN will be the account that controls the upgradeability of the jurisdiction, and as such, is not allowed to interact with it except for upgrading. It is recommended to use a non-default account (ie not the first one listed in your node) for ADMIN.
+
+Once you have created a jurisdiction, you can interact with it. As an example, we can create a new attribute type that we will use for receiving tokens, and assign the OWNER of the jurisdiction as an appointed validator for it. Fire up a new console via `npx truffle console --network rinkeby` and run the following, replacing JURISDICTION_ADDRESS and OWNER as needed:
+
+```js
+const OWNER = // The owner address as set above
+const JURISDICTION_ADDRESS = // The address of the jurisdiction as returned by the zos create call, also found under "proxies" in the zos.rinkeby.json file
+const BasicJurisdictionABI = require('tpl-contracts-eth/build/contracts/BasicJurisdiction.json').abi;
+const jurisdiction = new web3.eth.Contract(BasicJurisdictionABI, JURISDICTION_ADDRESS);
+const ATTRIBUTE_ID = 1;
+const TX_OPTS = { from: OWNER, gas: 1000000 };
+
+jurisdiction.methods.addAttributeType(ATTRIBUTE_ID, "RECEIVE").send(TX_OPTS);
+jurisdiction.methods.addValidator(OWNER, "OWNER").send(TX_OPTS);
+jurisdiction.methods.addValidator(OWNER, "OWNER").send(TX_OPTS);
+jurisdiction.methods.addValidatorApproval(OWNER, ATTRIBUTE_ID).send(TX_OPTS);
 ```
 
+We can use this jurisdiction to set up a TPL restricted token. This is a regular ERC20 token, but requires that every recipient on every transfer has been listed with ATTRIBUTE_ID by a validator in the jurisdiction. This way, the jurisdiction can control who is whitelisted to control this asset.
 
 ## API
 *NOTE: This documentation is not yet complete. See the relevant contract source code for additional information on available methods.*
