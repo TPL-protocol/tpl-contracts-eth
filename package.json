@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "homepage": "https://github.com/TPL-protocol/tpl-contracts-eth/",
+  "description": "Transaction Permission Layer is a protocol for assigning metadata to Ethereum addresses. These attributes then form the basis for designing systems that enforce permissions when performing certain transactions. For instance, using TPL, securities tokens can require that attributes be present and have an appropriate value every time a token is sent or received. This allows projects to remain compliant with regulations by validating every single exchange between participants. This package contains the contracts for setting up a digital jurisdiction with one or more validators.",
   "dependencies": {
     "openzeppelin-eth": "^2.0.0",
     "web3": "^1.0.0-beta.35",
